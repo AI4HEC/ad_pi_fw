@@ -1,0 +1,14 @@
+# config.yml
+audio:
+  sample_rate: 44100
+  bit_depth: 16
+
+modulation:
+  carrier_freq: 1000000  # 1 MHz
+  modulation_index: 0.8
+
+dac:
+  spi_bus: 0
+  spi_device: 0
+  vref: 3.3
+  bits: 16
