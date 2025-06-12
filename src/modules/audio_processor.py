@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Filename: audio_processor.py
+Author: Thimira Hirushan
+Date: 2025-06-12
+Description: A module for processing audio files, including loading, pre-emphasizing,
+             oversampling, and saving audio files. Supports both WAV and MP3 formats.
+"""
+
 import numpy as np
 from scipy.io import wavfile
 import pydub
