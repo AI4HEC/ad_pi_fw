@@ -9,32 +9,36 @@ Description: This module provides a DacInterface class for interfacing with a Di
 Version: 1.0
 """
 
+import sounddevice as sd
+import numpy as np
+
 class DacInterface:
     """
     A class to interface with a Digital-to-Analog Converter (DAC) for audio output.
 
     Attributes:
-        dac_device (str): The device file path for the DAC.
         sample_rate (int): Sample rate for audio output in Hz.
+        device (str or int): ALSA device name or index.
     """
 
-    def __init__(self, dac_device='/dev/dac', sample_rate=44100):
+    def __init__(self, sample_rate=44100, device=None):
         """
-        Initialize the DacInterface with the specified DAC device and sample rate.
+        Initialize the DacInterface with the specified sample rate and device.
 
         Args:
-            dac_device (str): Path to the DAC device file.
             sample_rate (int): Sample rate for audio output in Hz.
+            device (str or int): ALSA device name or index.
         """
-        self.dac_device = dac_device
         self.sample_rate = sample_rate
+        self.device = device  # ALSA device name or index
 
     def output_audio(self, audio_data):
         """
         Output audio data to the DAC.
 
         Args:
-            audio_data (bytes): Audio data to be sent to the DAC.
+            audio_data (numpy.ndarray): Audio data to be sent to the DAC (float32, -1.0 to 1.0).
         """
-        with open(self.dac_device, 'wb') as dac:
-            dac.write(audio_data)
+        sd.play(audio_data, samplerate=self.sample_rate, device=self.device)
+        sd.wait()
+
